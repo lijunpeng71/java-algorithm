@@ -2,7 +2,7 @@ package cn.com.bjtu.algorithm.base;
 
 import java.util.Scanner;
 
-public class MinGap {
+public class MinGapAndIndex {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             String linesStr = scanner.nextLine();
@@ -14,23 +14,21 @@ public class MinGap {
             for (int i = 0; i < lineNum; i++) {
                 longNUms[i] = Long.parseLong(nums[i]);
             }
-            long minGap = minGap(longNUms);
-            System.out.println(minGap);
+            quickSort(longNUms, 0, longNUms.length - 1);
+            long minGap = Long.MAX_VALUE;
+            int firstIndex = 0, secondIndex = 1;
+            for (int i = 1; i < longNUms.length; ++i) {
+                long gap = longNUms[i] - longNUms[i - 1];
+                if (minGap > gap) {
+                    minGap = gap;
+                    firstIndex = i - 1;
+                    secondIndex = i;
+                }
+            }
+            System.out.format("%d %d %d", minGap, firstIndex, secondIndex);
         } catch (Exception e) {
             System.exit(0);
         }
-    }
-
-    public static long minGap(long[] nums) {
-        quickSort(nums, 0, nums.length - 1);
-        long minGap = Long.MAX_VALUE;
-        for (int i = 1; i < nums.length; ++i) {
-            long gap = nums[i] - nums[i - 1];
-            if (minGap > gap) {
-                minGap = gap;
-            }
-        }
-        return minGap;
     }
 
 

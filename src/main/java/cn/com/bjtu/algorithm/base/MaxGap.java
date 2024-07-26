@@ -9,22 +9,19 @@ public class MaxGap {
             String[] lines = linesStr.split(" ");
             String numsStr = scanner.nextLine();
             String[] nums = numsStr.split(" ");
-            Long[] longNUms = new Long[nums.length];
-            for (int i = 0; i < nums.length; i++) {
-                longNUms[i] = Long.parseLong(nums[i]);
+            long max = Long.MAX_VALUE, min = Long.MIN_VALUE;
+            for (int i = 0; i < Integer.parseInt(lines[0]); i++) {
+                long temp = Long.parseLong(nums[i]);
+                if (temp < max) {
+                    max = temp;
+                }
+                if (temp > min) {
+                    min = temp;
+                }
             }
-            minGap(longNUms);
+            System.out.println(max - min);
         } catch (Exception e) {
             System.exit(0);
         }
-    }
-
-    public static void minGap(Long[] nums) {
-        
-    }
-
-
-    public static void quickSort(Long[] nums, int left, int right) {
-
     }
 }

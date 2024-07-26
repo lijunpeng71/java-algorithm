@@ -2,38 +2,40 @@ package cn.com.bjtu.algorithm.base;
 
 import java.util.Scanner;
 
-public class MinGap {
+public class IndependenceElement {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
-            String linesStr = scanner.nextLine();
-            String[] lines = linesStr.split(" ");
-            int lineNum = Integer.parseInt(lines[0]);
+            String lenStr = scanner.nextLine();
+            String[] lines = lenStr.split(" ");
+            int len = Integer.parseInt(lines[0]);
             String numsStr = scanner.nextLine();
             String[] nums = numsStr.split(" ");
-            long[] longNUms = new long[lineNum];
-            for (int i = 0; i < lineNum; i++) {
-                longNUms[i] = Long.parseLong(nums[i]);
+            long[] longNums = new long[len];
+            for (int i = 0; i < len; i++) {
+                longNums[i] = Long.parseLong(nums[i]);
             }
-            long minGap = minGap(longNUms);
-            System.out.println(minGap);
+            quickSort(longNums, 0, longNums.length - 1);
+            int index = 1;
+            System.out.print(longNums[index - 1]);
+            while (index < longNums.length) {
+                if (longNums[index - 1] != longNums[index]) {
+                    System.out.format(" %d", longNums[index]);
+                }
+                index++;
+            }
+            System.out.println();
         } catch (Exception e) {
             System.exit(0);
         }
     }
 
-    public static long minGap(long[] nums) {
-        quickSort(nums, 0, nums.length - 1);
-        long minGap = Long.MAX_VALUE;
-        for (int i = 1; i < nums.length; ++i) {
-            long gap = nums[i] - nums[i - 1];
-            if (minGap > gap) {
-                minGap = gap;
-            }
-        }
-        return minGap;
-    }
-
-
+    /**
+     * 快排（按照从大到小顺序）
+     *
+     * @param nums
+     * @param left
+     * @param right
+     */
     public static void quickSort(long[] nums, int left, int right) {
         if (left >= right) {
             return;
@@ -41,10 +43,10 @@ public class MinGap {
         int L = left, R = right;
         long pivot = nums[L];
         while (left < right) {
-            while (left < right && nums[right] > pivot) {
+            while (left < right && nums[right] < pivot) {
                 right--;
             }
-            while (left < right && nums[left] <= pivot) {
+            while (left < right && nums[left] >= pivot) {
                 left++;
             }
             if (left < right) {
