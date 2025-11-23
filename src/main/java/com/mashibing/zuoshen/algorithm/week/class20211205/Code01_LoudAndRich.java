@@ -30,8 +30,7 @@ public class Code01_LoudAndRich {
         for (int[] r : richer) {
             nexts.get(r[0]).add(r[1]);
         }
-
-
+        return null;
     }
 
     public static void main(String[] args) {
